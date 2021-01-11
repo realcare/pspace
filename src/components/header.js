@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Svg from './svgs';
+import SignIn from './SignIn'
 
 const HeaderBox = styled.div`
   align-items: center;
@@ -53,7 +54,25 @@ const Login = styled.div`
   }
 `;
 
+
+
 class Header extends Component {
+
+constructor(props) {
+  super(props);
+  this.state= {
+    isLoginOpen : false,
+  }
+}
+
+openLogin = () => {
+  this.setState({ isLoginOpen : true});
+}
+
+closeLogin = () => {
+  this.setState({ isLoginOpen : false});
+}
+
   render() {
     return (
       <>
@@ -76,7 +95,7 @@ class Header extends Component {
               <NavLi>문의하기</NavLi>
               <NavLi>중개매물</NavLi>
             </NavUl>
-            <Login>
+            <Login onClick={this.openLogin}>
               <Svg
                 name="login"
                 width="30px"
@@ -89,6 +108,7 @@ class Header extends Component {
             </Login>
           </NavBox>
         </HeaderBox>
+       <SignIn isLoginModalOpen={this.state.isLoginOpen} loginModalClose={this.closeLogin} />  
       </>
     );
   }
